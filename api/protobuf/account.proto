@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package account;
+
+option go_package = "./;accountpb";
+
+service AccountService {
+    rpc RegisterNasabah (RegisterNasabahRequest) returns (RegisterNasabahResponse);
+    rpc VerifyPIN (VerifyPINRequest) returns (VerifyPINResponse);
+    rpc GetAccountDetail (GetAccountDetailRequest) returns (GetAccountDetailResponse);
+}
+
+message RegisterNasabahRequest {
+    string nomor_identitas = 1;
+    string nama = 2;
+    string no_hp = 3;
+    string email = 4;
+    string pekerjaan = 5;
+    string alamat_nasabah = 6;
+    string pin = 7;
+    int64 setoran_awal = 8;
+    string tipe_nasabah = 9;
+    string npwp = 10;
+    string alamat_kantor = 11;
+}
+
+message RegisterNasabahResponse {
+    string nama = 1;
+    string no_rek = 2;
+    int64 saldo = 3;
+}
+
+message VerifyPINRequest {
+    string no_rek = 1;
+    string pin = 2;
+}
+
+message VerifyPINResponse {
+    bool is_valid = 1;
+    string nasabah_id = 2;
+    string message = 3;
+}
+
+message GetAccountDetailRequest {
+    string no_rek = 1;
+}
+
+message GetAccountDetailResponse {
+    string nasabah_id = 1;
+    string no_rek = 2;
+    string nama = 3;
+    int64 saldo = 4; 
+    string status = 5;
+    string tipe_nasabah = 6;
+}

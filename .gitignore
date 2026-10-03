@@ -1,0 +1,6 @@
+main
+*.exe
+*.bin
+.docker-data/
+mysql_data/
+.env

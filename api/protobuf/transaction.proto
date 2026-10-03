@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package transaction;
+
+option go_package = "./;transactionpb";
+
+service TransactionService {
+    rpc CashDeposit (CashDepositRequest) returns (CashDepositResponse);
+    rpc CashWithdrawal (CashWithdrawalRequest) returns (CashWithdrawalResponse);
+    rpc Transafer(TransferRequest) returns (TransferResponse);
+    rpc BatchDepositGaji (BatchDepositGajiRequest) returns (BatchDepositGajiResponse);
+}
+
+message CashDepositRequest {
+    string no_rek = 1;
+    int64 nominal = 2;     
+    string pin = 3;
+    string keterangan = 4; 
+}
+
+message CashDepositResponse {
+    string transaksi_id = 1;
+    string no_rek = 2;
+    int64 total_saldo = 3;  
+    string message = 4;
+}
+
+message CashWithdrawalRequest {
+    string no_rek = 1;
+    int64 nominal = 2;     
+    string pin = 3;
+    string keterangan = 4; 
+}
+
+message CashWithdrawalResponse {
+    string transaksi_id = 1;
+    string no_rek = 2;
+    int64 total_saldo = 3; 
+    string message = 4;
+}
+
+message TransferRequest {
+    string no_rek = 1;
+    string pin = 2;
+    string no_rek_tujuan = 3;
+    int64 nominal = 4;
+}
+
+message TransferResponse {
+    string transaksi_id = 1;
+    int64 sisa_saldo = 2;
+    string message = 3;
+}
+
+message GajiItem {
+    string no_rek_karyawan = 1;
+    int64 nominal_gaji = 2;
+}
+
+message BatchDepositGajiRequest {
+    string no_rek_perusahaan = 1;      
+    string nama_perusahaan = 2;
+    string pin_perusahaan = 3;
+    repeated GajiItem daftar_gaji = 4;
+}
+
+message BatchDepositGajiResponse {
+    string status = 1;            
+    int32 total_diproses = 2;    
+    int64 total_dana_keluar = 3;  
+    string message = 4;
+}
